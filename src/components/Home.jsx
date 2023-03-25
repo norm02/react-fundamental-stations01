@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../App.css"; // App.cssへの相対パスを指定
 
-export function Sled() {
+export function Home() {
   const [threadList, setThreadList] = useState([]);
 
   useEffect(() => {
@@ -34,7 +35,12 @@ export function Sled() {
 
   return (
     <div className="sled-container">
-      <header h1>掲示板</header>
+      <header>
+        <div className="header-left">掲示板</div>
+        <div className="header-right">
+          <Link to="/NewThread">スレッドを立てる</Link>
+        </div>
+      </header>
       <h1>新着スレッド</h1>
       <div>{renderThreads()}</div>
     </div>

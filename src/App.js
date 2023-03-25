@@ -1,10 +1,17 @@
 import "./App.css";
-import { Sled } from "./components/Sled.jsx";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Home } from "./components/Home.jsx";
+import { NewThread } from "./components/NewThread.jsx";
 
 function App() {
   return (
     <div className="App">
-      <Sled />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/NewThread" element={<NewThread />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

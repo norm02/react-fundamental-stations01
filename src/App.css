@@ -2,22 +2,24 @@
 header {
   background-color: #66d48b; /* 若草色に変更 */
   padding: 10px;
-  text-align: left; /* 中央揃えに変更 */
   color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* 掲示板の文字 */
-header h1 {
-  margin: 0;
-  font-size: 24px;
-  font-weight: bold;
-  color: white; /* 白色に変更 */
+.header-left {
+  color: white;
+  font-size: 20px; /* フォントサイズを小さく */
 }
 
-h1 {
-  margin-top: 0;
-  text-align: center; /* 中央揃えに変更 */
-  font-size: 20px;
+.header-right {
+  color: white;
+  font-size: 16px; /* フォントサイズを小さく */
+}
+
+.container {
+  margin-left: 0; /* 余白を削除 */
 }
 
 /* スレッドのコンテナー */

@@ -26,7 +26,9 @@ export function Home() {
   const renderThreads = () => {
     return threadList.map((thread) => (
       <div className="container" key={thread.id}>
-        <h2 className="title">{thread.title}</h2>
+        <h2 className="title">
+          <Link to={`/thread/${thread.id}`}>{thread.title}</Link>
+        </h2>
         <p className="id">{thread.id}</p>
         <p className="description">{thread.description}</p>
       </div>
@@ -38,7 +40,7 @@ export function Home() {
       <header>
         <div className="header-left">掲示板</div>
         <div className="header-right">
-          <Link to="/NewThread">スレッドを立てる</Link>
+          <Link to="/thread/new">スレッドを立てる</Link>
         </div>
       </header>
       <h1>新着スレッド</h1>

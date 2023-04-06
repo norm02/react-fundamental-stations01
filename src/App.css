@@ -1,7 +1,7 @@
 /* ヘッダー */
 header {
-  background-color: #66d48b; /* 若草色に変更 */
-  padding: 10px;
+  background-color: #66d48b;
+  padding: 20px;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -10,42 +10,149 @@ header {
 
 .header-left {
   color: white;
-  font-size: 20px; /* フォントサイズを小さく */
+  font-size: 20px;
 }
 
 .header-right {
   color: white;
-  font-size: 16px; /* フォントサイズを小さく */
+  font-size: 16px;
 }
 
-.container {
-  margin-left: 0; /* 余白を削除 */
+.home-title {
+  font-size: 20px;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* スレッドのコンテナー */
-.container {
-  margin: 20px auto; /* 画面を小さくして、中央にそろえる */
+.thread-container {
   max-width: 500px;
-  border: 1px solid #ccc;
-  padding: 10px;
+  border: 3px solid #ccc;
   background: white;
 }
 
-/* スレッドのタイトル */
-.title {
-  margin-top: 0;
+.threads-container {
+  margin: 20px auto;
+  max-width: 500px;
+  border: 3px solid #ccc;
+  background: white;
+}
+
+.thread-title {
   font-size: 20px;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* スレッドの説明 */
-.description {
-  margin-bottom: 0;
+.thread-id {
+  font-size: 16px;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-body {
-  background-color: #f5f5f5;
+/* スレッド*/
+.new-thread-title {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.sled-container {
+.new-thread-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.new-thread-input {
+  display: flex;
+  width: 200%;
+  padding: 5px;
+  border: 1px solid #66d48b;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  height: 60px;
+  justify-content: center;
+}
+
+.new-thread-button {
+  background-color: #66d48b;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+  margin-right: 360px;
+  width: 10%;
+  position: absolute;
+  right: 0;
+}
+
+.underform-left {
+  margin-top: 10px;
   text-align: center;
+  margin-right: 10%;
+}
+
+.underform-right {
+  display: flex;
+  align-items: center;
+  margin-right: 25%;
+}
+
+/* コメント */
+.new-comment-title {
+  margin-left: 100px;
+}
+
+.comments-container {
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.container {
+  border: 3px solid #ccc;
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  flex-basis: calc(33.33% - 40px);
+  max-width: 300px;
+  margin: 10px;
+  box-sizing: border-box;
+  justify-content: flex-start;
+}
+
+.new-comment-form {
+  margin-left: auto;
+  margin-top: auto;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 100px;
+}
+
+.new-comment-input {
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-left: 100px;
+  width: 100%;
+}
+
+.new-comment-button {
+  margin-top: 10px;
+  display: block;
+  background-color: #66d48b;
+  color: #fff;
+  margin-left: auto;
 }

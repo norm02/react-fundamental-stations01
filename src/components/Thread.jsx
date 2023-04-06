@@ -1,10 +1,16 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form"; // Import react-hook-form
 
 export function Thread() {
   const { thread_id } = useParams();
   const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm(); // Use react-hook-form
 
   useEffect(() => {
     async function fetchComments() {
@@ -24,45 +30,66 @@ export function Thread() {
     fetchComments();
   }, [thread_id]);
 
-  function handleNewCommentChange(event) {
-    setNewComment(event.target.value);
-  }
-
-  async function handleNewCommentSubmit(event) {
-    event.preventDefault();
+  function handleNewCommentSubmit(data) {
     try {
-      const response = await fetch(
+      const response = fetch(
         `https://2y6i6tqn41.execute-api.ap-northeast-1.amazonaws.com/threads/${thread_id}/posts`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ post: newComment }),
+          body: JSON.stringify({ post: data.newComment }),
         }
       );
       if (!response.ok) {
         throw new Error("Failed to create new comment");
       }
-      setNewComment("");
+      reset(); // Reset the form after successful submission
     } catch (error) {
       console.error(error);
     }
   }
 
+  const renderComments = () => {
+    return comments.map((comment) => (
+      <div className="container" key={comment.id}>
+        <p className="post">{comment.post}</p>
+      </div>
+    ));
+  };
+
   return (
-    <div>
-      <h2>投稿一覧</h2>
-      {comments.map((comment) => (
-        <div key={comment.id}>{comment.post}</div>
-      ))}
-      <form onSubmit={handleNewCommentSubmit}>
+    <div className="comment-header-container">
+      <header className="header">
+        <div className="header-left">掲示板</div>
+        <div className="header-right">
+          <Link to="/thread/new" className="new-thread-link">
+            スレッドを立てる
+          </Link>
+        </div>
+      </header>
+      <div className="new-comment-title">
+        <h2>投稿一覧</h2>
+      </div>
+      <div className="comments-container">{renderComments()}</div>
+      <form
+        className="new-comment-form"
+        onSubmit={handleSubmit(handleNewCommentSubmit)}
+      >
         <input
-          type="text"
-          value={newComment}
-          onChange={handleNewCommentChange}
-        />
-        <button type="submit">投稿する</button>
+          className="new-comment-input"
+          {...register("newComment", {
+            required: "コメントを入力してください",
+          })}
+          placeholder="投稿しよう！"
+        ></input>
+        {errors.newComment && (
+          <p className="error">{errors.newComment.message}</p>
+        )}{" "}
+        <button className="new-comment-button" type="submit">
+          投稿
+        </button>
       </form>
     </div>
   );

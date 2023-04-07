@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form"; // Import react-hook-form
+import { useState, useEffect, useCallback } from "react";
+import { useForm } from "react-hook-form";
 
 export function Thread() {
   const { thread_id } = useParams();
@@ -10,29 +10,32 @@ export function Thread() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm(); // Use react-hook-form
+  } = useForm();
 
-  useEffect(() => {
-    async function fetchComments() {
-      try {
-        const response = await fetch(
-          `https://2y6i6tqn41.execute-api.ap-northeast-1.amazonaws.com/threads/${thread_id}/posts`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch comments");
-        }
-        const data = await response.json();
-        setComments(data.posts);
-      } catch (error) {
-        console.error(error);
+  // fetchComments関数を定義
+  const fetchComments = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `https://2y6i6tqn41.execute-api.ap-northeast-1.amazonaws.com/threads/${thread_id}/posts`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch comments");
       }
+      const data = await response.json();
+      setComments(data.posts);
+    } catch (error) {
+      console.error(error);
     }
-    fetchComments();
   }, [thread_id]);
 
-  function handleNewCommentSubmit(data) {
+  useEffect(() => {
+    fetchComments(); // fetchComments関数を直接呼び出し
+  }, [thread_id, fetchComments]);
+
+  // handleNewCommentSubmit関数の定義
+  async function handleNewCommentSubmit(data) {
     try {
-      const response = fetch(
+      const response = await fetch(
         `https://2y6i6tqn41.execute-api.ap-northeast-1.amazonaws.com/threads/${thread_id}/posts`,
         {
           method: "POST",
@@ -45,7 +48,8 @@ export function Thread() {
       if (!response.ok) {
         throw new Error("Failed to create new comment");
       }
-      reset(); // Reset the form after successful submission
+      reset();
+      fetchComments();
     } catch (error) {
       console.error(error);
     }
@@ -86,7 +90,7 @@ export function Thread() {
         ></input>
         {errors.newComment && (
           <p className="error">{errors.newComment.message}</p>
-        )}{" "}
+        )}
         <button className="new-comment-button" type="submit">
           投稿
         </button>
